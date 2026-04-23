@@ -72,7 +72,7 @@
         const octx = off.getContext("2d");
 
         off.width = 1600;
-        off.height = 400;
+        off.height = 500;
 
         octx.fillStyle = "#fff";
         octx.textAlign = "center";
@@ -82,7 +82,12 @@
 
         octx.font = `700 ${fontSize}px system-ui`;
 
-        octx.fillText(text, off.width / 2, off.height / 2);
+        const lines = text.split("\n");
+        const lineHeight = fontSize * 1.25;
+        const startY = off.height / 2 - ((lines.length - 1) * lineHeight) / 2;
+        lines.forEach((line, i) => {
+          octx.fillText(line, off.width / 2, startY + i * lineHeight);
+        });
 
         const img = octx.getImageData(0, 0, off.width, off.height).data;
 
@@ -119,7 +124,7 @@
 
         sophiaTargets = fit(textPoints("Sophia"), count);
 
-        trangTargets = fit(textPoints("Nguyễn Trần Thảo Trang"), count);
+        trangTargets = fit(textPoints("Nguyễn Trần\nThảo Trang"), count);
       }
 
       function initParticles() {
